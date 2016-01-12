@@ -2,14 +2,8 @@
 using System.Collections;
 
 public class Controller{
-	public static SingleMessage<Vector2> Rotate = new SingleMessage<Vector2>();
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	//void Update () {
-	
-	//}
+	public static Message<Vector2> Rotate = new Message<Vector2>();
+	public static Message Fire = new Message();
+
+
 }
