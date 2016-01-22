@@ -23,6 +23,7 @@ public class StateMachine<T> where T : struct, IComparable, IConvertible, IForma
 		}
 
 	}
+    
 	public void resetState(T noneState){
 		T transientState_ = _curState;
 		StateMachine<T>.OnStateChange.Say(_curState, noneState );

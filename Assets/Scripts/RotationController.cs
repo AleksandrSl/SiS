@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using System;
+using System.Linq;
 
 
-class ObjectRotationController : MonoBehaviour{
+class RotationController : MonoBehaviour{
 
 	public void OnRotationCommand(Vector2 coord_2d){
 
@@ -17,7 +21,6 @@ class ObjectRotationController : MonoBehaviour{
 			transform.rotation = Quaternion.Slerp (transform.rotation, clickRotation_, speed_ * Time.deltaTime);
 		}
 	}
-
 
 	void Awake(){
 		Controller.Rotate.Subscribe (OnRotationCommand);

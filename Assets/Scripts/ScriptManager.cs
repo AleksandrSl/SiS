@@ -7,7 +7,7 @@ public class ScriptManager : MonoBehaviour {
 	public FireButton fireButton;
 
 	void Awake(){
-		StateMachine<GameStates>.OnStateChange.Subscribe (TurnScriptOff_On);
+		//StateMachine<GameStates>.OnStateChange.Subscribe (TurnScriptOff_On);
 		//GameStateController.gameStateMachine.OnStateChange.Subscribe (TurnScriptOff); // error CS0176: Static member `StateMachine<GameStates>.OnStateChange' cannot be accessed with an instance reference, qualify it with a type name instead
 	}
 

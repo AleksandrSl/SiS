@@ -4,6 +4,8 @@ using System.Collections;
 public class FireButton : MonoBehaviour {
 
 	public void OnClick(){
-		Controller.Fire.Say ();
+		if (this.enabled) {
+			Controller.Fire.Say ();
+		}
 	}
 }
