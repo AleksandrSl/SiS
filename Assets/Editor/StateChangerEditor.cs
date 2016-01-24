@@ -8,10 +8,14 @@ using System.Linq;
 
 [CustomEditor(typeof(StateChanger))]
 public class StateChangerEditor: Editor{
-	int _stateMachineIndex = 0;
-    int _stateIndex = 0;
+	public int _stateMachineIndex;
+    
+    public int _stateIndex ;
     public string[] _stateMachineChoices;
     public string[] _stateChoices;
+   
+    
+    
     
     
 
@@ -58,24 +62,26 @@ public class StateChangerEditor: Editor{
         StateChanger stateChanger = (StateChanger)target;
         _stateMachineChoices = getClassesByNamespace("StateMachine");
 		_stateMachineIndex = EditorGUILayout.Popup (_stateMachineIndex, _stateMachineChoices);
-        stateChanger._stateMachineName = _stateMachineChoices[_stateMachineIndex];
+        stateChanger.stateMachineName = _stateMachineChoices[_stateMachineIndex];
 
         string _stateMachineClassName ="StateMachine." + _stateMachineChoices[_stateMachineIndex];
         Type _stateMachineClass = typeof(StateChanger).Assembly.GetType(_stateMachineClassName);
         
         
+        
         FieldInfo[] _stateMachine = _stateMachineClass.GetFields();
         var _val = _stateMachine[0].GetValue(null);
+        
         string _enumName = _val.GetType().GetGenericArguments()[0].ToString();
-        stateChanger._enumName = _enumName;
+        stateChanger.enumName = _enumName;
         Type _enumType = typeof(StateChanger).Assembly.GetType(_enumName);
         //stateChanger._enum = _enumType;
         _stateChoices = getStates(_enumType);
         _stateIndex = EditorGUILayout.Popup(_stateIndex, _stateChoices );
-        stateChanger._stateName = _stateChoices[_stateIndex];
-        stateChanger._stateNum = _stateIndex;
-       
-
+        stateChanger.stateName = _stateChoices[_stateIndex];
+        stateChanger.stateNum = _stateIndex;
+        if (GUI.changed)
+            EditorUtility.SetDirty(stateChanger);
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Reflection;
 using System;
 
 public class StateMachine<T> where T : struct, IComparable, IConvertible, IFormattable 
@@ -9,6 +10,7 @@ public class StateMachine<T> where T : struct, IComparable, IConvertible, IForma
 	private T _curState;
 	public StateMachine(T defaultState){
 		_curState = defaultState;
+        Debug.Log("I'm created");
 	}
 
 	public T curState{
