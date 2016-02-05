@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -15,11 +16,14 @@ class RotationController : MonoBehaviour{
 
 		//Debug.Log("Rotation Started");
 		Quaternion clickRotation_ = Quaternion.LookRotation (Vector3.forward, coord_3d_ - transform.position);
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            if (clickRotation_ != transform.rotation)
+            { //Is't worth to do so?
 
-		if (clickRotation_ != transform.rotation) { //Is't worth to do so?
-		
-			transform.rotation = Quaternion.Slerp (transform.rotation, clickRotation_, speed_ * Time.deltaTime);
-		}
+                transform.rotation = Quaternion.Slerp(transform.rotation, clickRotation_, speed_ * Time.deltaTime);
+            }
+        }
 	}
 
 	void Awake(){

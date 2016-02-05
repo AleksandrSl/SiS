@@ -15,9 +15,5 @@ namespace StateMachine
     public class GameStateController{
 
 	    public static StateMachine<GameStates> gameStateMachine = new StateMachine<GameStates>(GameStates.Turn);
-        
-        
-
-
-    }
+        }
 }
