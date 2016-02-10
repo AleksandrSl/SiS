@@ -8,11 +8,7 @@ public class TouchPosition : MonoBehaviour {
 
 
 
-	void Awake(){
-		//StateMachine<GameStates>.OnStateChange.Subscribe (TurnScriptOff);
-		//GameStateController.gameStateMachine.OnStateChange.Subscribe (TurnScriptOff); // error CS0176: Static member `StateMachine<GameStates>.OnStateChange' cannot be accessed with an instance reference, qualify it with a type name instead
-
-	}
+	
 
 	void Update () {
 		#if UNITY_EDITOR_WIN
