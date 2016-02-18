@@ -16,6 +16,10 @@ public class OnAimCollision : MonoBehaviour {
         GameObject teleport = Instantiate(teleportPrafeb, _pos, Quaternion.identity) as GameObject;
         Animator explosionAnim = teleport.GetComponent<Animator>();
         DestroyObject(teleport, explosionAnim.GetCurrentAnimatorStateInfo(0).length);
+        
+    }
+    void OnCollisionExit2D()
+    {
         _stateChanger.ChangeState();
 
     }
@@ -24,12 +28,7 @@ public class OnAimCollision : MonoBehaviour {
     }
    
     
-    void OnDestroy() {
-        
-       
-        
-        
-    }
+    
 	// Update is called once per frame
 	
 }

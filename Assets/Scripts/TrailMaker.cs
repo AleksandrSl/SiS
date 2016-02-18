@@ -10,7 +10,8 @@ public class TrailMaker : MonoBehaviour {
     public float density;
     public GameObject dotPrefab1;
     public GameObject dotPrefab2;
-    float _nextDot = 1;
+    public float firstDot;
+    float _nextDot;
     Vector3 _pos = Vector3.zero;
    
     Rigidbody2D _rb2d;
@@ -18,6 +19,7 @@ public class TrailMaker : MonoBehaviour {
    
 	void Awake()
     {
+        _nextDot = firstDot;
         _rb2d = this.GetComponent<Rigidbody2D>();
       
         //InvokeRepeating("leaveTrail", 0 ,0.5f);
@@ -43,9 +45,8 @@ public class TrailMaker : MonoBehaviour {
     {
         leaveTrail();
     }
-    void OnDestroy()
+    public void OnDestroy()
     {
-        Debug.Log("Said");
         TrailMaker.trail.Say(_trail);
     }
 	
