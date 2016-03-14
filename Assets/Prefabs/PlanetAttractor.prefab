@@ -12,11 +12,9 @@ GameObject:
   - 50: {fileID: 5036870}
   - 58: {fileID: 5851670}
   - 114: {fileID: 11479072}
-  - 114: {fileID: 11434680}
-  - 114: {fileID: 11459906}
   m_Layer: 0
   m_Name: PlanetAttractor
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,30 +62,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.64
---- !u!114 &11434680
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 178624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f95e19fb457f546a168479e373ece0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionSpawn: {fileID: 11459906}
---- !u!114 &11459906
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 178624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d938650552926144827a55d232ab244, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 122576, guid: ca83f14fd3e0fbb4f80ae0c36fe55ef9, type: 2}
 --- !u!114 &11479072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,11 +113,15 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: explosionSpawn
       value: 
-      objectReference: {fileID: 11459906}
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: explosionPrefab
       value: 
       objectReference: {fileID: 122576, guid: ca83f14fd3e0fbb4f80ae0c36fe55ef9, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Planet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 178624}

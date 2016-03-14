@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public class TrailMaker : MonoBehaviour {
     public static SingleMessage<List<GameObject>> trail = new SingleMessage<List<GameObject>>();
+    public static SingleMessage<List<Vector2>> transformTrail = new SingleMessage<List<Vector2>>();
     List<GameObject> _trail = new List<GameObject>();
-    
+    List<Vector2> _transformTrail = new List<Vector2>();
+
     
     public float density;
     public GameObject dotPrefab1;
@@ -13,23 +15,23 @@ public class TrailMaker : MonoBehaviour {
     public float firstDot;
     float _nextDot;
     Vector3 _pos = Vector3.zero;
-   
-    Rigidbody2D _rb2d;
+    bool _trailSended = false;
+    Movable _mov;
     int _counter;
    
 	void Awake()
     {
         _nextDot = firstDot;
-        _rb2d = this.GetComponent<Rigidbody2D>();
+        _mov = this.GetComponent<Movable>();
       
         //InvokeRepeating("leaveTrail", 0 ,0.5f);
     }
-    void leaveTrail()
+    public void leaveTrail()
     {
         
         if (Time.time >= (_nextDot)) {
             
-            _nextDot = Time.time + 1/ (density*_rb2d.velocity.magnitude);
+            _nextDot = Time.time + 1/ (density*_mov.velocity.magnitude);
             if (_pos != Vector3.zero)
             {
                 
@@ -40,15 +42,25 @@ public class TrailMaker : MonoBehaviour {
 
         }
     }
-    
-    void FixedUpdate()
-    {
-        leaveTrail();
-    }
-    public void OnDestroy()
+
+    void OnCollisionEnter2D()
     {
         TrailMaker.trail.Say(_trail);
+        _trailSended = true;
+
     }
+    void OnDestroy()
+    {
+        if (TouchHandler.applicationIsRunning&(!_trailSended))
+        {
+            TrailMaker.trail.Say(_trail);
+        }
+        if (this.gameObject.name == "DemoTrailPoint")
+        {
+            TrailMaker.transformTrail.Say(_transformTrail);
+        }
+    }
+    
 	
 	
 }

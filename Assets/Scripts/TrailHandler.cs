@@ -29,6 +29,16 @@ public class TrailHandler : MonoBehaviour {
         
         
     }
+    public List<Vector2> getPath()
+    {
+        List<Vector2> path = new List<Vector2>();
+        foreach (GameObject point in _trails[_count])
+        {
+            path.Add(point.transform.position);
+            
+        }
+        return path;
+    }
     void deleteTrail(List<GameObject> trail)
     {
         if (trail.Count != 0)
@@ -43,18 +53,8 @@ public class TrailHandler : MonoBehaviour {
             //_count--;
         }
     }
-    public void winTrail() {
-        Debug.Log("FuckMe");
-        foreach (GameObject dot in _trails[_count])
-        {
-            
-            Vector2 pos = dot.transform.position;
-            Destroy(dot);
-            GameObject winDot = Instantiate(dotPrefab, pos, Quaternion.identity) as GameObject;
-            //Destroy(winDot);
-                        
-        }
-    }
+   
+    
         
     
 }

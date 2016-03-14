@@ -3,7 +3,8 @@ using System.Collections;
 
 
 public class Controller{
-	public static Message<Vector2> Rotate = new Message<Vector2>();
-	public static Message Fire = new Message();
-    
+	public static Message<Touch> Touch = new Message<Touch>();
+	public static Message<float> Fire = new Message<float>();
+    public static Message<float> demoFire = new Message<float>();
+    public static Message<float> fillRadialElement = new Message<float>();
 }

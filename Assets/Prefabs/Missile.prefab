@@ -13,9 +13,12 @@ GameObject:
   - 114: {fileID: 11474110}
   - 114: {fileID: 11494662}
   - 114: {fileID: 11416586}
-  - 247: {fileID: 24798448}
   - 58: {fileID: 5844142}
   - 114: {fileID: 11419048}
+  - 114: {fileID: 11413598}
+  - 114: {fileID: 11425594}
+  - 114: {fileID: 11430474}
+  - 114: {fileID: 11422856}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -31,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 110198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -30.44, y: -11.08, z: 0}
-  m_LocalScale: {x: 1.5346094, y: 1.3742267, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,11 +47,11 @@ Rigidbody2D:
   m_GameObject: {fileID: 110198}
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDrag: 1
-  m_AngularDrag: 0.05
+  m_LinearDrag: 0
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_IsKinematic: 0
-  m_Interpolate: 2
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -66,6 +69,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.64
+--- !u!114 &11413598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d938650552926144827a55d232ab244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 122576, guid: ca83f14fd3e0fbb4f80ae0c36fe55ef9, type: 2}
 --- !u!114 &11416586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,8 +104,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 1
-  dotPrefab1: {fileID: 153898, guid: 9e3741433f5d6054dae0a5551f1ab35d, type: 2}
-  dotPrefab2: {fileID: 153898, guid: 9e3741433f5d6054dae0a5551f1ab35d, type: 2}
+  dotPrefab1: {fileID: 124726, guid: 9e3741433f5d6054dae0a5551f1ab35d, type: 2}
+  dotPrefab2: {fileID: 0}
+  firstDot: 0
+--- !u!114 &11422856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f684f9ca5f1d6f419663df0aa0c9c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeStep: 0.01
+--- !u!114 &11425594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7303fd24d6568954e9709a408f781f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionSpawn: {fileID: 11413598}
+  stateChanger: {fileID: 11430474}
+--- !u!114 &11430474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f9b3bc12f13c041aee906a892595a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachineName: GameStateController
+  stateMachineIndex: 0
+  enumName: GameStates
+  stateName: HitAnimation
+  stateIndex: 3
 --- !u!114 &11474110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b405c2a95a66924bb103ff69e3bb8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trailMaker: {fileID: 11419048}
 --- !u!114 &11494662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -148,16 +206,6 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!247 &24798448
-ConstantForce2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 110198}
-  m_Enabled: 1
-  m_Force: {x: 0, y: 0}
-  m_RelativeForce: {x: 0, y: 0}
-  m_Torque: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -187,11 +235,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Interpolate
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LinearDrag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_UseAutoMass
@@ -228,7 +276,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: dotPrefab1
       value: 
-      objectReference: {fileID: 153898, guid: 9e3741433f5d6054dae0a5551f1ab35d, type: 2}
+      objectReference: {fileID: 124726, guid: 9e3741433f5d6054dae0a5551f1ab35d, type: 2}
     - target: {fileID: 0}
       propertyPath: density
       value: 1
@@ -236,7 +284,43 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: dotPrefab2
       value: 
-      objectReference: {fileID: 153898, guid: 9e3741433f5d6054dae0a5551f1ab35d, type: 2}
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 122576, guid: ca83f14fd3e0fbb4f80ae0c36fe55ef9, type: 2}
+    - target: {fileID: 0}
+      propertyPath: explosionSpawn
+      value: 
+      objectReference: {fileID: 11413598}
+    - target: {fileID: 0}
+      propertyPath: trailMaker
+      value: 
+      objectReference: {fileID: 11419048}
+    - target: {fileID: 0}
+      propertyPath: stateChanger
+      value: 
+      objectReference: {fileID: 11430474}
+    - target: {fileID: 0}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: timeStep
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 110198}

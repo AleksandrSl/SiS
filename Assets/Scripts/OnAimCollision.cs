@@ -1,34 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class OnAimCollision : MonoBehaviour {
-    StateChanger _stateChanger;
-    Vector2 _pos;
-    public GameObject teleportPrafeb;
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-        
-        Destroy(collision.gameObject);
-        _pos = transform.position;
-        Destroy(this.gameObject);
-        GameObject teleport = Instantiate(teleportPrafeb, _pos, Quaternion.identity) as GameObject;
-        Animator explosionAnim = teleport.GetComponent<Animator>();
-        DestroyObject(teleport, explosionAnim.GetCurrentAnimatorStateInfo(0).length);
-        
-    }
-    void OnCollisionExit2D()
-    {
-        _stateChanger.ChangeState();
-
-    }
-    void Awake() {
-        _stateChanger = GetComponent<StateChanger>();
-    }
-   
+    public TrailHandler trailHandler;
     
+    List<Vector2> path = null;
     
-	// Update is called once per frame
+    public void moveToShip()
+    {
+        path = trailHandler.getPath();
+        path.Reverse();
+        Debug.Log("PAth is here");
+
+        foreach (Vector2 point in path)
+        {
+            transform.position = Vector2.Lerp(transform.position, point, 0.9f);
+        }
+    }
 	
+	// Update is called once per frame
+	void Update () {
+	    
+	}
 }
