@@ -15,27 +15,23 @@ public class TrailHandler : MonoBehaviour {
         _trails[1] = new List<GameObject>();
         _trails[2] = new List<GameObject>();
 
-        TrailMaker.trail.Subscribe(addTrail);
+        TrailMaker.Trail.Subscribe(addTrail);
         
     }
-    
+
     void addTrail(List<GameObject> trail)
     {
         deleteTrail(_trails[_count]);
         _trails[_count] = trail;
-        Debug.Log("Added");
-        //_count++;
-        
-        
-        
+        //Debug.Log("Added");
     }
+
     public List<Vector2> getPath()
     {
         List<Vector2> path = new List<Vector2>();
         foreach (GameObject point in _trails[_count])
         {
-            path.Add(point.transform.position);
-            
+            path.Add(point.transform.position);    
         }
         return path;
     }
@@ -48,7 +44,7 @@ public class TrailHandler : MonoBehaviour {
 
                 Destroy(dot);
             }
-            Debug.Log("Destroyed");
+            //Debug.Log("Destroyed");
             trail.Clear();
             //_count--;
         }

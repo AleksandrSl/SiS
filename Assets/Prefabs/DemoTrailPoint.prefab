@@ -44,8 +44,8 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db597088f6f24b2479f0505ed49e0dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeStep: 0.008
+  timeStep: 0.01
   _stepNumber: 0
 --- !u!114 &11459888
 MonoBehaviour:
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2420bf6d6af72a54b8ac8af517cb2785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  density: 20000
+  Density: 0.05
   dotPrefab1: {fileID: 157696, guid: 9e901f9de365da944bea1292c3a8474c, type: 2}
   dotPrefab2: {fileID: 157696, guid: 9e901f9de365da944bea1292c3a8474c, type: 2}
   firstDot: 0
@@ -163,7 +163,7 @@ Prefab:
       objectReference: {fileID: 157696, guid: 9e901f9de365da944bea1292c3a8474c, type: 2}
     - target: {fileID: 0}
       propertyPath: m_Interpolate
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LinearDrag
@@ -191,11 +191,15 @@ Prefab:
       objectReference: {fileID: 157696, guid: 9e901f9de365da944bea1292c3a8474c, type: 2}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: timeStep
-      value: 0.008
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Density
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

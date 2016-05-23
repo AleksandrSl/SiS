@@ -3,30 +3,30 @@ using System.Collections;
 
 class demoMissileMovement : Movable {
 
-    TrailMaker _trailMaker;
+    private TrailMaker _trailMaker;
     public int _stepNumber = 0; 
     void Awake()
     {
         _trailMaker = GetComponent<TrailMaker>();
         _attr = GetComponent<Attractable>();
+        Controller.demoMissileDestroy.Subscribe(destroy);
     }
-    
-    void FixedUpdate()
 
+    void destroy()
     {
-        for (int i = 0; i < 30; ++i)
-        {
+        Destroy(this.gameObject);
+    }
+    void FixedUpdate()
+    {
 
+        for (int i = 0; i < 5; ++i)
+        {
             this.MovementStep();
-            _trailMaker.leaveTrail();
+           _trailMaker.LeaveTrailByCoord();
         }
 
         _stepNumber++;
-        if (_stepNumber == 5) 
+        if (_stepNumber == 5)
             Destroy(this.gameObject);
-        
-
     }
-
-    
 }

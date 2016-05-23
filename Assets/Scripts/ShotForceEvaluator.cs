@@ -4,12 +4,13 @@ using UnityEngine.EventSystems;
 
 public class ShotForceEvaluator : MonoBehaviour {
 
-    public float startRadius;
-    public float shotForceMax;
+    public float StartRadius;
+    public float ShotForceMax;
 
     private Vector2 _pos2D;
     private Vector2 _startPos;
     private Vector2 _touchPos;
+    private Vector2 _curPos;
     private float _shotForce;
     private bool _isStarted = false;
 
@@ -23,8 +24,8 @@ public class ShotForceEvaluator : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             _startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
-            if ((Vector2.SqrMagnitude(_startPos - _pos2D)) > startRadius)
+            _curPos = _startPos;
+            if (!((Vector2.SqrMagnitude(_startPos - _pos2D)) > StartRadius))
             {
                 _isStarted = false;
             }
@@ -36,12 +37,20 @@ public class ShotForceEvaluator : MonoBehaviour {
 
         if (_isStarted)
         {
+            
             if (Input.GetMouseButton(0))
             {
+                
                 _touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                _shotForce = Mathf.Min(Vector2.Distance(_touchPos, _startPos)*2, shotForceMax);
-                Controller.demoFire.Say(_shotForce);
-                Controller.fillRadialElement.Say(_shotForce/shotForceMax);
+                if (_touchPos != _curPos)
+                {
+                    _curPos = _touchPos;
+                    _shotForce = Mathf.Min(Vector2.Distance(_touchPos, _startPos)*2, ShotForceMax);
+                    Controller.demoMissileDestroy.Say();
+                    Controller.demoFire.Say(_shotForce);
+                    Debug.Log(_shotForce/ShotForceMax);
+                    Controller.fillRadialElement.Say(_shotForce/ShotForceMax);
+                }
             }
 
             if (Input.GetMouseButtonUp(0))
