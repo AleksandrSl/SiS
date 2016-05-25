@@ -1,32 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-class demoMissileMovement : Movable {
+class DemoMissileMovement : Movable {
 
     private TrailMaker _trailMaker;
-    public int _stepNumber = 0; 
+    private int _stepNumber = 0; 
     void Awake()
     {
         _trailMaker = GetComponent<TrailMaker>();
-        _attr = GetComponent<Attractable>();
-        Controller.demoMissileDestroy.Subscribe(destroy);
+        Attr = GetComponent<Attractable>();
     }
 
-    void destroy()
+    
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(this.gameObject);
+        Debug.Log("Collide1!!!!!1111!");
+        Attr.enabled = false;
     }
     void FixedUpdate()
     {
-
-        for (int i = 0; i < 5; ++i)
+        if (_stepNumber < 10)
         {
-            this.MovementStep();
-           _trailMaker.LeaveTrailByCoord();
+            for (int i = 0; i < 5; ++i)
+            {
+                this.MovementStep();
+                _trailMaker.LeaveConstTrailByCoord();
+            }
         }
-
+        else
+        {
+            //Attr.enabled = false;
+            this.enabled = false;
+        }
         _stepNumber++;
-        if (_stepNumber == 5)
-            Destroy(this.gameObject);
     }
 }

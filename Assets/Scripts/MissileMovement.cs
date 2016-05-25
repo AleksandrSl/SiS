@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Attractable), typeof(TrailMaker), typeof(Rigidbody2D))]
 class MissileMovement : Movable {
 
-    TrailMaker _trailMaker;
+    private TrailMaker _trailMaker;
+
     void Awake()
     {
         _trailMaker = GetComponent<TrailMaker>();
-        _attr = GetComponent<Attractable>();
+        Attr = GetComponent<Attractable>(); // Declared in Movable
     }
 	// Update is called once per frame
 	void FixedUpdate () {
-        this.MovementStep();
-        _trailMaker.leaveTrail();
-
+        MovementStep();
+        _trailMaker.LeaveConstTrailByTime();
     }
 }

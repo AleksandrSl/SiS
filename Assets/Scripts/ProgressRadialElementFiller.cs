@@ -7,7 +7,7 @@ public class ProgressRadialElementFiller : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-        Controller.fillRadialElement.Subscribe(OnDemoFire);
+        Controller.FillRadialElement.Subscribe(OnDemoFire);
 	
 	}
 	

@@ -4,45 +4,23 @@ using System.Collections;
 
 class Movable: MonoBehaviour
 {
-    protected Attractable _attr;
-    public float timeStep;
 
+    private static float TimeStep = 0.01f;
+
+    protected Attractable Attr;
     private Vector3 _coord = Vector3.zero;
-    private Vector2 _velocity;
-    private Vector2 _acceleration;
 
 
-    public Vector2 velocity
-    {
-        get
-        {
-            return _velocity;
-        }
-        set
-        {
-            _velocity = value;
-        }
-    }
-    public Vector2 acceleration
-    {
-        get
-        {
-            return _acceleration;
-        }
-        set
-        {
-            _acceleration = value;
-        }
-    }
+    public Vector2 Velocity { get; set; }
+
+    public Vector2 Acceleration { get; set; }
 
     protected void MovementStep()
     {
-
-        acceleration = _attr.getGravityField();
-        velocity += acceleration * timeStep;
-        Vector3 _coord = new Vector3(velocity.x * timeStep, velocity.y * timeStep, 0);
+        Acceleration = Attr.getGravityField();
+        Velocity += Acceleration * TimeStep;
+        _coord = new Vector3(Velocity.x * TimeStep, Velocity.y * TimeStep, 0);
         transform.Translate(_coord);
-
     }
 
 

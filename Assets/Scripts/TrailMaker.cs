@@ -11,17 +11,16 @@ public class TrailMaker : MonoBehaviour {
 
     
     public float Density;
-    public GameObject dotPrefab1;
-    public GameObject dotPrefab2;
-    public float firstDot;
-    float _nextDotTime;
+    public GameObject DotPrefab1;
+    public GameObject DotPrefab2;
+    public float FirstDot;
+    private float _nextDotTime;
    
     private float _completedPath;
     private float _traversedDist;
-    private Vector2 _curCoord;
-    private Vector2 _prevCoord;
-    Vector3 _pos = Vector3.zero;
-
+    
+    private Vector2 _curPos;
+    private Vector2 _prevPos;
     bool _trailSended = false;
     Movable _mov;
     int _counter;
@@ -29,37 +28,31 @@ public class TrailMaker : MonoBehaviour {
 
     void Awake()
     {
-        _nextDotTime = firstDot;
-	    _curCoord = transform.position;
+        _nextDotTime = FirstDot;
+	    _curPos = transform.position;
         _nextDotDist = 1/Density;
-        _prevCoord = transform.position;
 	    _traversedDist = 0;
         _mov = this.GetComponent<Movable>();
     }
-    public void leaveTrail()
+    public void LeaveConstTrailByTime()
     {
-        if (!(Time.time >= (_nextDotTime))) return;
-        _nextDotTime += 1/(Density*_mov.velocity.magnitude);
-            
-        if (_pos != Vector3.zero)
-        {
-                
-            _trail.Add(Instantiate(dotPrefab1, _pos, Quaternion.identity) as GameObject);
-        }
+        _curPos = transform.position;
+        if (Time.time < _nextDotTime) return;
+        _nextDotTime += 1/(Density * _mov.Velocity.magnitude);
+        _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
 
-        _pos = transform.position;
+        
     }
 
-    public void LeaveTrailByCoord()
+    public void LeaveConstTrailByCoord()
     {
-        _traversedDist += Vector2.Distance(_curCoord, _prevCoord);
-        _curCoord = transform.position;
-        if (_traversedDist > _nextDotDist)
-        {
-            _nextDotDist += 1/Density;
-            Debug.Log(_nextDotDist);
-            _trail.Add(Instantiate(dotPrefab1, transform.position, Quaternion.identity) as GameObject);
-        }
+        _prevPos = _curPos;
+        _curPos = transform.position;
+        _traversedDist += Vector2.Distance(_curPos, _prevPos);
+        if (_traversedDist < _nextDotDist) return;
+        _nextDotDist += 1/Density;
+        //Debug.Log(_nextDotDist);
+        _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
     }
 
     void OnCollisionEnter2D()
@@ -69,6 +62,15 @@ public class TrailMaker : MonoBehaviour {
     }
     void OnDestroy()
     {
+        if (gameObject.tag == "DemoMissile")
+        {
+            foreach (var dot  in _trail)
+            {
+                Destroy(dot);
+            }
+            Debug.Log("Destroyed!!");
+            return;
+        }
         if (TouchHandler.applicationIsRunning&(!_trailSended))
         {
             TrailMaker.Trail.Say(_trail);

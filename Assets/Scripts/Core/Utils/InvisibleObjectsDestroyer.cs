@@ -22,7 +22,7 @@ public class InvisibleObjectsDestroyer : MonoBehaviour {
                 Debug.Log("FuckME");
 
                 Destroy(this.gameObject);
-                _stateChanger.ChangeState();
+                //_stateChanger.ChangeState();
             }
         }
     }
