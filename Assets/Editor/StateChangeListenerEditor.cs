@@ -6,8 +6,9 @@ using System.Linq;
 
 
 [CustomEditor(typeof(StateChangeListener))]
-public class StateChangeListenerEditor : Editor {
-    public string[] stateMachineChoices;
+public class StateChangeListenerEditor : Editor
+{
+    public string[] StateMachineChoices;
     public string[] stateChoices;
 
     private bool stateMachineChoicesDone = false; // To use reflection only once
@@ -15,7 +16,6 @@ public class StateChangeListenerEditor : Editor {
    
     string[] getClassesByNamespace(string @namespace, Assembly ass)
     {
-
         var q = from t in ass.GetTypes()
                 where t.IsClass && t.Namespace == @namespace
                 select t;
@@ -28,7 +28,6 @@ public class StateChangeListenerEditor : Editor {
 
     string[] getStates(Type enumType)
     {
-
         FieldInfo[] _states = enumType.GetFields(BindingFlags.Public | BindingFlags.Static); // Flags to remove value__;
         string[] _stateName = new string[_states.Length];
         int i = 0;
@@ -49,11 +48,11 @@ public class StateChangeListenerEditor : Editor {
         {
             stateMachineChoicesDone = true;
             Assembly ass = typeof(StateMachine<>).Assembly;
-            stateMachineChoices = getClassesByNamespace("StateMachine", ass);
+            StateMachineChoices = getClassesByNamespace("StateMachine", ass);
             //Debug.Log("StateMachnesLoaded");
         }
-        stateChangeListener.stateMachineIndex = EditorGUILayout.Popup("State Machine",stateChangeListener.stateMachineIndex, stateMachineChoices);
-        stateChangeListener.stateMachineName = stateMachineChoices[stateChangeListener.stateMachineIndex];
+        stateChangeListener.stateMachineIndex = EditorGUILayout.Popup("State Machine",stateChangeListener.stateMachineIndex, StateMachineChoices);
+        stateChangeListener.stateMachineName = StateMachineChoices[stateChangeListener.stateMachineIndex];
 
         if (!stateChoicesDone)
         {

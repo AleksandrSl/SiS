@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class InvisibleObjectsDestroyer : MonoBehaviour {
 	
     private StateChanger _stateChanger;
-    public TrailMaker trailMaker;
 	
 	void Start ()
     {
@@ -18,9 +18,6 @@ public class InvisibleObjectsDestroyer : MonoBehaviour {
         {
             if (this.enabled)  // Otherwise this function is called when object is destroyed
             {
-
-                Debug.Log("FuckME");
-
                 Destroy(this.gameObject);
                 //_stateChanger.ChangeState();
             }
