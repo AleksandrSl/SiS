@@ -75,9 +75,5 @@ public class TrailMaker : MonoBehaviour {
         {
             TrailMaker.Trail.Say(_trail);
         }
-        //if (this.gameObject.name == "DemoTrailPoint")
-        //{
-        //    TrailMaker.TransformTrail.Say(_transformTrail);
-        //}
     }
 }

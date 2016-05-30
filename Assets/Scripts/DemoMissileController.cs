@@ -23,8 +23,8 @@ public class DemoMissileController : MonoBehaviour {
         }
         Rigidbody2D demoMissileInst = Instantiate(DemoMissile, transform.position, new Quaternion(0, 0, 0, 1)) as Rigidbody2D;
         demoMissileInst.GetComponent<Movable>().Velocity = transform.up * shotForce;
-        Debug.Log("Demo vel: " + demoMissileInst.GetComponent<Movable>().Velocity);
-        Debug.Log("Demo trans: " + transform.up);
+        //Debug.Log("Demo vel: " + demoMissileInst.GetComponent<Movable>().Velocity);
+        //Debug.Log("Demo trans: " + transform.up);
         _counter += 1;
     }
     void Awake()
