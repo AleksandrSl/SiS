@@ -19,7 +19,7 @@ public class ShotForceEvaluator : MonoBehaviour {
         _objPos = transform.position;
     }
 
-    void Update () {
+    void LateUpdate () {
         if (Input.GetMouseButtonDown(0))
         {
             //Debug.Log("MouseButtonPressed");

@@ -104,11 +104,11 @@ public class RotationController : MonoBehaviour
             _rotation = Quaternion.LookRotation(Vector3.forward, _direction);
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                if (_rotation != transform.rotation)
-                { //Is't worth to do so?
+                //if (_rotation != transform.rotation)
+                //{ //Is't worth to do so?
                     transform.rotation = Quaternion.Slerp(transform.rotation, _rotation, rotationSpeed * Time.deltaTime);
                     Debug.Log("Rotated!");
-                }
+                //}
             }
         }
 
