@@ -38,13 +38,13 @@ public class ShotForceEvaluator : MonoBehaviour {
             _shotForce = Mathf.Min(Vector2.Distance(_touchPos, _startPos)*2, ShotForceMax);
             Controller.DemoFire.Say(_shotForce);
             Controller.FillRadialElement.Say(_shotForce/ShotForceMax);
-            //Debug.Log("Demo: " + _shotForce);
+            
         }
         else if (Input.GetMouseButtonUp(0))
         {
             _isStarted = false;
+            Controller.DemoFire.Say(_shotForce);
             Controller.Fire.Say(_shotForce);
-            //Debug.Log("Real: " + _shotForce);
         }
     }
 }

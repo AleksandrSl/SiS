@@ -94,7 +94,7 @@ public class RotationController : MonoBehaviour
         //Controller.Touch.Subscribe(OnRotationCommand);
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (Input.GetMouseButton(0))
         {
@@ -104,11 +104,8 @@ public class RotationController : MonoBehaviour
             _rotation = Quaternion.LookRotation(Vector3.forward, _direction);
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                //if (_rotation != transform.rotation)
-                //{ //Is't worth to do so?
-                    transform.rotation = Quaternion.Slerp(transform.rotation, _rotation, rotationSpeed * Time.deltaTime);
-                    Debug.Log("Rotated!");
-                //}
+               transform.rotation = Quaternion.Slerp(transform.rotation, _rotation, rotationSpeed * Time.deltaTime);
+                    //Debug.Log("Rotated!");
             }
         }
 
