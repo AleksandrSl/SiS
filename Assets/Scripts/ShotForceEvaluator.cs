@@ -35,7 +35,7 @@ public class ShotForceEvaluator : MonoBehaviour {
             _touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (_touchPos == _curPos) return;
             _curPos = _touchPos;
-            _shotForce = Mathf.Min(Vector2.Distance(_touchPos, _startPos)*2, ShotForceMax);
+            _shotForce = Mathf.Min(Vector2.Distance(_touchPos, transform.position)*2, ShotForceMax);
             Controller.DemoFire.Say(_shotForce);
             Controller.FillRadialElement.Say(_shotForce/ShotForceMax);
             
