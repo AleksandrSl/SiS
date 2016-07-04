@@ -14,7 +14,6 @@ class DemoMissileMovement : Movable {
     
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collide1!!!!!1111!");
         Attr.enabled = false;
     }
     void FixedUpdate()
@@ -24,6 +23,7 @@ class DemoMissileMovement : Movable {
             this.MovementStep();
             _trailMaker.LeaveConstTrailByCoord();
         }
-        enabled = false;    
+        enabled = false;
+        //Destroy(this.gameObject); //Destroy missile when it has reached the end of its path
     }
 }

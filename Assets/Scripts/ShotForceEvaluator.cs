@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class ShotForceEvaluator : MonoBehaviour {
 
     public float StartRadius;
-    public float ShotForceMax;
+    public static float ShotForceMax = 100;
 
     private Vector2 _objPos;
     private Vector2 _startPos;

@@ -17,7 +17,7 @@ public class DemoMissileController : MonoBehaviour {
         prevDemoMissile = GameObject.FindGameObjectWithTag("DemoMissile");
         if (prevDemoMissile)
         {
-            Destroy(GameObject.FindGameObjectWithTag("DemoMissile"));
+            Destroy(GameObject.FindGameObjectWithTag("DemoMissile")); //Destroy prev missile when a new one is spawned
         }
         Rigidbody2D demoMissileInst = Instantiate(DemoMissile, transform.position, new Quaternion(0, 0, 0, 1)) as Rigidbody2D;
         demoMissileInst.GetComponent<Movable>().Velocity = transform.up * shotForce;

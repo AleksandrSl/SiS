@@ -21,9 +21,11 @@ public class TrailMaker : MonoBehaviour {
     
     private Vector2 _curPos;
     private Vector2 _prevPos;
-    bool _trailSended = false;
-    Movable _mov;
-    int _counter;
+    private float _startVel;
+    private float _maxVel;
+    private bool _trailSended = false;
+    private Movable _mov;
+    private int _counter;
     private float _nextDotDist;
 
     void Awake()
@@ -33,6 +35,11 @@ public class TrailMaker : MonoBehaviour {
         _nextDotDist = 1/Density;
 	    _traversedDist = 0;
         _mov = this.GetComponent<Movable>();
+        _maxVel = ShotForceEvaluator.ShotForceMax;
+    }
+    void Start()
+    {
+        _startVel = _mov.Velocity.magnitude;
     }
     public void LeaveConstTrailByTime()
     {
@@ -40,8 +47,6 @@ public class TrailMaker : MonoBehaviour {
         if (Time.time < _nextDotTime) return;
         _nextDotTime += 1/(Density * _mov.Velocity.magnitude);
         _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
-
-        
     }
 
     public void LeaveConstTrailByCoord()
@@ -49,10 +54,12 @@ public class TrailMaker : MonoBehaviour {
         _prevPos = _curPos;
         _curPos = transform.position;
         _traversedDist += Vector2.Distance(_curPos, _prevPos);
-        if (_traversedDist < _nextDotDist) return;
-        _nextDotDist += 1/Density;
-        //Debug.Log(_nextDotDist);
-        _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
+        if (!(_traversedDist < _nextDotDist))
+        {
+            _nextDotDist += 1/ (Density * ((_startVel / _maxVel)* (_startVel / _maxVel)));
+            //Debug.Log(_nextDotDist);
+            _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
+        }
     }
 
     void OnCollisionEnter2D()
