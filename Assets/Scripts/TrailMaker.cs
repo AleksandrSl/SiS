@@ -54,18 +54,30 @@ public class TrailMaker : MonoBehaviour {
         _prevPos = _curPos;
         _curPos = transform.position;
         _traversedDist += Vector2.Distance(_curPos, _prevPos);
-        if (!(_traversedDist < _nextDotDist))
-        {
-            _nextDotDist += 1/ (Density * ((_startVel / _maxVel)* (_startVel / _maxVel)));
-            //Debug.Log(_nextDotDist);
-            _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
-        }
+        if (_traversedDist < _nextDotDist) return;
+        _nextDotDist += 1/ (Density * ((_startVel / _maxVel)));
+        _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
+        
     }
 
     void OnCollisionEnter2D()
     {
-        TrailMaker.Trail.Say(_trail);
-        _trailSended = true;
+        if (gameObject.tag == "DemoMissile")
+        {
+            foreach (var dot in _trail)
+            {
+                SpriteRenderer sprRend = dot.GetComponent<SpriteRenderer>();
+                sprRend.color = Color.blue;
+                //Destroy(dot);
+            }
+            Debug.Log("Destroyed!!");
+            return;
+        }
+        else
+        {
+            TrailMaker.Trail.Say(_trail);
+            _trailSended = true;
+        }
     }
     void OnDestroy()
     {
@@ -80,7 +92,9 @@ public class TrailMaker : MonoBehaviour {
         }
         if (TouchHandler.applicationIsRunning&(!_trailSended))
         {
+            Debug.Log("Sended");
             TrailMaker.Trail.Say(_trail);
+            
         }
     }
 }

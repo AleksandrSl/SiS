@@ -14,7 +14,8 @@ class DemoMissileMovement : Movable {
     
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Attr.enabled = false;
+        Debug.Log("Collision detected"); //Collision detected only after the path is rendered, thus the path lies through planets
+        enabled = false;
     }
     void FixedUpdate()
     {
@@ -24,6 +25,5 @@ class DemoMissileMovement : Movable {
             _trailMaker.LeaveConstTrailByCoord();
         }
         enabled = false;
-        //Destroy(this.gameObject); //Destroy missile when it has reached the end of its path
     }
 }
