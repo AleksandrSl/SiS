@@ -3,55 +3,40 @@ using System.Collections;
 
 public class CameraShake : MonoBehaviour
 {
-    public Camera cam;
+    public Camera Cam;
     [SerializeField]
     AnimationCurve DamperCurve;
-    public float _damperTime;
-    public float magnitude;
+    private float _damperTime;
+    public float Magnitude;
     // Use this for initialization
     void Awake()
     {
-        cam = GetComponent<Camera>();
+        Cam = GetComponent<Camera>();
+        Controller.ExplSpawned.Subscribe(StartShake);
     }
-    void Start()
-    {
-
-    }
-    IEnumerator Shake()
+    IEnumerator Shake(float shakeDuration)
     {
         Vector3 originalCamPos = transform.position;
-        
-        while (GameObject.FindGameObjectWithTag("Explosion"))
+        while (_damperTime < shakeDuration)
         {
             float damper = DamperCurve.Evaluate(_damperTime);
             // map value to [-1, 1]
             float x = Random.value * 2.0f - 1.0f;
             float y = Random.value * 2.0f - 1.0f;
-            x *= magnitude * damper;
-            y *= magnitude * damper;
+            x *= Magnitude * damper;
+            y *= Magnitude * damper;
             //Debug.Log("Shake started");
 
             transform.position = new Vector3(originalCamPos.x + x, originalCamPos.y + y, originalCamPos.z);
-
+            _damperTime += Time.deltaTime;
             yield return null;
         }
+       
     }
-    //    void Shake()
-    //{
-    //   transform.position += new Vector3()
-    //}
-    // Update is called once per frame
-    void Update()
-    {
-        if (GameObject.FindGameObjectWithTag("Explosion"))
-        {
 
-            //Debug.Log("Expl");
-            //print(transform.position.x);
-            _damperTime = 0;
-            _damperTime += Time.deltaTime;
-            _damperTime *= 10;
-            StartCoroutine(Shake());
-        }
+    private void StartShake(float shakeDuration)
+    {
+        _damperTime = 0;
+        StartCoroutine(Shake(shakeDuration));
     }
 }
