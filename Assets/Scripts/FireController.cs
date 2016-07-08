@@ -13,6 +13,6 @@ public class FireController : MonoBehaviour {
     }
 	void Awake()
     {
-		Controller.Fire.Subscribe (OnFire);
+		Controller.FireForce.Subscribe (OnFire);
 	}
 }

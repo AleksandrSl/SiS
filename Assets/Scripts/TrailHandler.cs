@@ -14,10 +14,10 @@ public class TrailHandler : MonoBehaviour {
     
     void Awake()
     {
-        TrailMaker.Trail.Subscribe(addTrail);
+        TrailMaker.Trail.Subscribe(AddTrail);
     }
 
-    IEnumerator fadeAway(List<GameObject> trail, float fadeLevel = 0.5f)
+    IEnumerator FadeAway(List<GameObject> trail, float fadeLevel = 0.5f)
     {
         float oldAlpha = trail[0].GetComponent<SpriteRenderer>().color.a;
         float finalAlpha = oldAlpha * (1 - fadeLevel);
@@ -37,7 +37,7 @@ public class TrailHandler : MonoBehaviour {
         yield break;
     }
 
-    IEnumerator deleteTrail(List<GameObject> trail)
+    IEnumerator DeleteTrail(List<GameObject> trail)
     {
         float oldAlpha = trail[0].GetComponent<SpriteRenderer>().color.a;
         float finalAlpha = 0.0f;
@@ -63,13 +63,14 @@ public class TrailHandler : MonoBehaviour {
     }
 
 
-    void addTrail(List<GameObject> trail)
+    void AddTrail(List<GameObject> trail)
     {
         Debug.Log(trail);
         if (_trails.Count >= capacity)
         {
-            StartCoroutine(deleteTrail(_trails.Dequeue()));
-           _trails.Enqueue(trail); 
+            StartCoroutine(DeleteTrail(_trails.Dequeue()));
+           _trails.Enqueue(trail);
+            Debug.Log(_trails.Count);
         }
         else
         {
@@ -77,9 +78,8 @@ public class TrailHandler : MonoBehaviour {
         }
         for (int i = 0; i < (_trails.Count - 1); ++i)
         {
-            StartCoroutine(fadeAway(_trails.ElementAt(i), 0.1f));
+            StartCoroutine(FadeAway(_trails.ElementAt(i), 0.2f));
         }  
-
     }
 
     //public List<Vector2> getPath(int pathN)

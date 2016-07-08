@@ -6,10 +6,9 @@ using System.Runtime.InteropServices;
 public class TrailMaker : MonoBehaviour {
     public static SingleMessage<List<GameObject>> Trail = new SingleMessage<List<GameObject>>();
     public static SingleMessage<List<Vector2>> TransformTrail = new SingleMessage<List<Vector2>>();
-    List<GameObject> _trail = new List<GameObject>();
-    List<Vector2> _transformTrail = new List<Vector2>();
-
+    private List<GameObject> _trail = new List<GameObject>();
     
+
     public float Density;
     public GameObject DotPrefab1;
     public GameObject DotPrefab2;
@@ -55,46 +54,42 @@ public class TrailMaker : MonoBehaviour {
         _curPos = transform.position;
         _traversedDist += Vector2.Distance(_curPos, _prevPos);
         if (_traversedDist < _nextDotDist) return;
-        _nextDotDist += 1/ (Density * ((_startVel / _maxVel)));
-        _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
-        
+        //_nextDotDist += 1/ (Density * ((_startVel / _maxVel)));
+        _nextDotDist += 1 / Density;
+        _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);        
     }
 
-    void OnCollisionEnter2D()
+    public void DestroyTrail()
     {
-        if (gameObject.tag == "DemoMissile")
+        foreach (var dot in _trail)
         {
-            foreach (var dot in _trail)
-            {
-                SpriteRenderer sprRend = dot.GetComponent<SpriteRenderer>();
-                sprRend.color = Color.blue;
-                //Destroy(dot);
-            }
-            Debug.Log("Destroyed!!");
-            return;
-        }
-        else
-        {
-            TrailMaker.Trail.Say(_trail);
-            _trailSended = true;
+            Destroy(dot);
         }
     }
+
+    public void ChangeTrailColor(Color color)
+    {
+        foreach (var dot in _trail)
+        {
+            SpriteRenderer sprRend = dot.GetComponent<SpriteRenderer>();
+            sprRend.color = color;
+        }
+    }
+
+    public void SendTrail()
+    {
+        TrailMaker.Trail.Say(_trail);
+    }
+
     void OnDestroy()
     {
         if (gameObject.tag == "DemoMissile")
         {
-            foreach (var dot  in _trail)
-            {
-                Destroy(dot);
-            }
-            Debug.Log("Destroyed!!");
-            return;
+            DestroyTrail();
         }
-        if (TouchHandler.applicationIsRunning&(!_trailSended))
+        else if (TouchHandler.applicationIsRunning&(!_trailSended))
         {
-            Debug.Log("Sended");
-            TrailMaker.Trail.Say(_trail);
-            
+            SendTrail();  
         }
     }
 }

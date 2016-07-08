@@ -96,7 +96,7 @@ public class RotationController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0)) 
         {
             _touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             _direction = _touchPos - _curPos;
