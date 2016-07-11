@@ -31,6 +31,8 @@ class MissileMovement : Movable {
     void FixedUpdate()
     {
         MovementStep();
-        _trailMaker.LeaveConstTrailByTime();
+        _trailMaker.LeaveConstTrail();
+
     }
+  
 }

@@ -19,10 +19,10 @@ class DemoMissileMovement : Movable {
     }
     void FixedUpdate()
     {
-        for (int i = 0; i < 50; ++i)
+        for (int i = 0; i < 40; ++i)
         {
             this.MovementStep();
-            _trailMaker.LeaveConstTrailByCoord();
+            _trailMaker.LeaveConstTrail();
         }
         enabled = false;
     }

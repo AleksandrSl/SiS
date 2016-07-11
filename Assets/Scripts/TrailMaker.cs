@@ -9,54 +9,51 @@ public class TrailMaker : MonoBehaviour {
     private List<GameObject> _trail = new List<GameObject>();
     
 
-    public float Density;
+    public float Density = 2.5f;
     public GameObject DotPrefab1;
     public GameObject DotPrefab2;
     public float FirstDot;
-    private float _nextDotTime;
+    public int WhereTrailBegins = 1;
+   
    
     private float _completedPath;
     private float _traversedDist;
     
     private Vector2 _curPos;
     private Vector2 _prevPos;
-    private float _startVel;
-    private float _maxVel;
     private bool _trailSended = false;
-    private Movable _mov;
-    private int _counter;
-    private float _nextDotDist;
+    private int _dotNum;
+    private float _distToNextDot;
 
     void Awake()
     {
-        _nextDotTime = FirstDot;
-	    _curPos = transform.position;
-        _nextDotDist = 1/Density;
-	    _traversedDist = 0;
-        _mov = this.GetComponent<Movable>();
-        _maxVel = ShotForceEvaluator.ShotForceMax;
-    }
-    void Start()
-    {
-        _startVel = _mov.Velocity.magnitude;
-    }
-    public void LeaveConstTrailByTime()
-    {
         _curPos = transform.position;
-        if (Time.time < _nextDotTime) return;
-        _nextDotTime += 1/(Density * _mov.Velocity.magnitude);
-        _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
+	    _traversedDist = 0;
+        _distToNextDot = Density * _dotNum;
+        _dotNum = WhereTrailBegins;
     }
 
-    public void LeaveConstTrailByCoord()
+    //public void LeaveConstTrailByTime()
+    //{
+    //    _curPos = transform.position;
+    //    if (Time.time < _nextDotTime) return;
+    //    _nextDotTime += 1/(Density * _mov.Velocity.magnitude);
+    //    Debug.Log((1 / (Density * _mov.Velocity.magnitude)) * 1000000);
+    //    _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
+    //}
+
+    public void LeaveConstTrail()
     {
         _prevPos = _curPos;
         _curPos = transform.position;
         _traversedDist += Vector2.Distance(_curPos, _prevPos);
-        if (_traversedDist < _nextDotDist) return;
-        //_nextDotDist += 1/ (Density * ((_startVel / _maxVel)));
-        _nextDotDist += 1 / Density;
-        _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);        
+        
+        while (((_curPos - _prevPos).normalized * _distToNextDot).magnitude < _traversedDist)
+        {
+            _distToNextDot = Density * _dotNum;
+            _trail.Add(Instantiate(DotPrefab1, (_curPos - _prevPos).normalized * (_distToNextDot - _traversedDist) + _prevPos, Quaternion.identity) as GameObject);
+            _dotNum++;
+        }
     }
 
     public void DestroyTrail()

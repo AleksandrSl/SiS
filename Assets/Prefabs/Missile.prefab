@@ -67,7 +67,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.64
+  m_Radius: 1.55
 --- !u!114 &11403362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,7 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d938650552926144827a55d232ab244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 122576, guid: ca83f14fd3e0fbb4f80ae0c36fe55ef9, type: 2}
+  explPrefab: {fileID: 122576, guid: ca83f14fd3e0fbb4f80ae0c36fe55ef9, type: 2}
+  explSound: {fileID: 8300000, guid: 8ceedd2f0910acc49b63bff2ee55ee4e, type: 3}
 --- !u!114 &11416586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -117,6 +118,7 @@ MonoBehaviour:
   DotPrefab1: {fileID: 157696, guid: 9e901f9de365da944bea1292c3a8474c, type: 2}
   DotPrefab2: {fileID: 0}
   FirstDot: 0
+  WhereTrailBegins: 1
 --- !u!114 &11425594
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,8 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7303fd24d6568954e9709a408f781f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionSpawn: {fileID: 11413598}
-  stateChanger: {fileID: 0}
+  ExplosionSpawn: {fileID: 11413598}
+  StateChanger: {fileID: 0}
+  TrailMaker: {fileID: 11419048}
 --- !u!114 &11474110
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -137,7 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d938650552926144827a55d232ab244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 0}
+  explPrefab: {fileID: 0}
+  explSound: {fileID: 0}
 --- !u!4 &324566450
 Transform:
   m_ObjectHideFlags: 0
@@ -249,7 +250,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 178624, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
       propertyPath: m_Name
@@ -262,6 +263,14 @@ Prefab:
     - target: {fileID: 21239134, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
       propertyPath: m_SortingOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
@@ -303,7 +312,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 178624, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
       propertyPath: m_Name
@@ -312,6 +321,14 @@ Prefab:
     - target: {fileID: 21239134, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
       propertyPath: m_SortingOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
@@ -371,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartRadius: 20
+  ShotForceMin: 20
 --- !u!114 &838844735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,7 +688,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -758,8 +776,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a80afd6787691479c4a066040f9f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  efxSource: {fileID: 0}
-  musicSource: {fileID: 0}
+  efxSource: {fileID: 1065596934}
+  musicSource: {fileID: 1065596933}
   lowPitchRange: 0.95
   highPitchRange: 1.05
 --- !u!1 &1267915861
@@ -863,7 +881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa359e1010a71cd4baf3df1066577b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  Cam: {fileID: 0}
   DamperCurve:
     serializedVersion: 2
     m_Curve:
@@ -890,8 +908,7 @@ MonoBehaviour:
     m_PreInfinity: 1
     m_PostInfinity: 2
     m_RotationOrder: 0
-  _damperTime: 0
-  magnitude: 10
+  Magnitude: 0
 --- !u!114 &1267915868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -961,7 +978,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5036870, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
       propertyPath: m_Mass
@@ -982,6 +999,14 @@ Prefab:
     - target: {fileID: 21239134, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
       propertyPath: m_SortingOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
@@ -1032,6 +1057,14 @@ Prefab:
     - target: {fileID: 21239134, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
       propertyPath: m_SortingOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 424502, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65a8796b54c8f764191fcd9e2fd9664c, type: 2}
