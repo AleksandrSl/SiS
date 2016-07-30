@@ -13,7 +13,7 @@ GameObject:
   - 114: {fileID: 11459888}
   - 50: {fileID: 5060594}
   - 58: {fileID: 5859348}
-  - 114: {fileID: 11401772}
+  - 114: {fileID: 11452316}
   m_Layer: 0
   m_Name: DemoTrailPoint
   m_TagString: DemoMissile
@@ -65,7 +65,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.28
---- !u!114 &11401772
+--- !u!114 &11452316
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -102,6 +102,7 @@ MonoBehaviour:
   DotPrefab1: {fileID: 124726, guid: 9e3741433f5d6054dae0a5551f1ab35d, type: 2}
   DotPrefab2: {fileID: 0}
   FirstDot: 0
+  WhereTrailBegins: 1
 --- !u!212 &21295936
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -17,6 +17,7 @@ GameObject:
   - 114: {fileID: 11413598}
   - 114: {fileID: 11425594}
   - 114: {fileID: 11403362}
+  - 114: {fileID: 11436314}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -131,8 +132,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionSpawn: {fileID: 11413598}
-  StateChanger: {fileID: 0}
-  TrailMaker: {fileID: 11419048}
+--- !u!114 &11436314
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f9b3bc12f13c041aee906a892595a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachineName: GameStateController
+  stateMachineIndex: 0
+  enumName: GameStates
+  stateName: Turn
+  stateIndex: 0
 --- !u!114 &11474110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b405c2a95a66924bb103ff69e3bb8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trailMaker: {fileID: 0}
 --- !u!212 &21223856
 SpriteRenderer:
   m_ObjectHideFlags: 1

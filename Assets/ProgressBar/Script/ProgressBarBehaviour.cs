@@ -104,7 +104,7 @@ namespace ProgressBar
         /// The methods that you register to be triggered when the ProgressBar is empty.
         /// </summary>
         [SerializeField]
-        private OnCompleteEvent OnEmptyMethods;
+        private OnEmptyEvent OnEmptyMethods;
 
         /// <summary>
         /// By default the Filler is centered horizontally in its container panel.
@@ -185,6 +185,7 @@ namespace ProgressBar
                 m_AttachedText.text = Mathf.Round(Width / FillerInfo.MaxWidth * 100).ToString() + " %";
 
             m_FillRect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, XOffset, Width);
+            
         }
 
         /// <summary>
