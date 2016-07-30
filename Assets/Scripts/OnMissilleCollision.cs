@@ -1,26 +1,24 @@
 ﻿using UnityEngine;
-
+[RequireComponent(typeof(StateChanger))]
 public class OnMissilleCollision : MonoBehaviour {
-    public ExplosionSpawn explosionSpawn;
-    public StateChanger stateChanger;
+    public ExplosionSpawn ExplosionSpawn;
+    private StateChanger _stateChanger;
+    void Awake()
+    {
+        _stateChanger = GetComponent<StateChanger>();
+    }
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Planet")
         {
-            explosionSpawn.spawnExplosion(collision.contacts[0].point);
+            ExplosionSpawn.spawnExplosion(collision.contacts[0].point);
             Destroy(this.gameObject);
+            _stateChanger.ChangeState();
         }
         if (collision.collider.tag == "Aim")
         {
-            
             Destroy(this.gameObject);
-            stateChanger.ChangeState(); //Вызывается именно здесь, так как в противном случае стэйт меняется до сохранения пути
-        }
-        
+        }   
     }
-    
-	void Update () {
-	
-	}
 
 }

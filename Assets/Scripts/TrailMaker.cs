@@ -5,77 +5,84 @@ using System.Runtime.InteropServices;
 
 public class TrailMaker : MonoBehaviour {
     public static SingleMessage<List<GameObject>> Trail = new SingleMessage<List<GameObject>>();
-    public static SingleMessage<List<Vector2>> TransformTrail = new SingleMessage<List<Vector2>>();
-    List<GameObject> _trail = new List<GameObject>();
-    List<Vector2> _transformTrail = new List<Vector2>();
-
+    private List<GameObject> _trail = new List<GameObject>();
     
-    public float Density;
-    public GameObject dotPrefab1;
-    public GameObject dotPrefab2;
-    public float firstDot;
-    float _nextDotTime;
-   
-    private float _completedPath;
-    private float _traversedDist;
-    private Vector2 _curCoord;
-    private Vector2 _prevCoord;
-    Vector3 _pos = Vector3.zero;
 
-    bool _trailSended = false;
-    Movable _mov;
-    int _counter;
-    private float _nextDotDist;
+    public float Density = 2.5f;
+    public GameObject DotPrefab1;
+    public GameObject DotPrefab2;
+    public float FirstDot;
+    public int WhereTrailBegins = 1;
+   
+    private float _traversedDist;
+    private Vector2 _curPos;
+    private Vector2 _prevPos;
+    private bool _trailSended = false;
+    private int _dotNum;
+    private float _distToNextDot;
 
     void Awake()
     {
-        _nextDotTime = firstDot;
-	    _curCoord = transform.position;
-        _nextDotDist = 1/Density;
-        _prevCoord = transform.position;
+        _curPos = transform.position;
 	    _traversedDist = 0;
-        _mov = this.GetComponent<Movable>();
+        _distToNextDot = Density * _dotNum;
+        _dotNum = WhereTrailBegins;
     }
-    public void leaveTrail()
+
+    //public void LeaveConstTrailByTime()
+    //{
+    //    _curPos = transform.position;
+    //    if (Time.time < _nextDotTime) return;
+    //    _nextDotTime += 1/(Density * _mov.Velocity.magnitude);
+    //    Debug.Log((1 / (Density * _mov.Velocity.magnitude)) * 1000000);
+    //    _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
+    //}
+
+    public void LeaveSteadyTrail()
     {
-        if (!(Time.time >= (_nextDotTime))) return;
-        _nextDotTime += 1/(Density*_mov.velocity.magnitude);
-            
-        if (_pos != Vector3.zero)
+        _prevPos = _curPos;
+        _curPos = transform.position;
+        _traversedDist += Vector2.Distance(_curPos, _prevPos);
+        
+        while (((_curPos - _prevPos).normalized * _distToNextDot).magnitude < _traversedDist)
         {
-                
-            _trail.Add(Instantiate(dotPrefab1, _pos, Quaternion.identity) as GameObject);
+            _trail.Add(Instantiate(DotPrefab1, (_curPos - _prevPos).normalized * (_distToNextDot - _traversedDist) + _prevPos, Quaternion.identity) as GameObject);
+            _dotNum++;
+            _distToNextDot = Density * _dotNum;
         }
-
-        _pos = transform.position;
     }
 
-    public void LeaveTrailByCoord()
+    public void DestroyTrail()
     {
-        _traversedDist += Vector2.Distance(_curCoord, _prevCoord);
-        _curCoord = transform.position;
-        if (_traversedDist > _nextDotDist)
+        foreach (var dot in _trail)
         {
-            _nextDotDist += 1/Density;
-            Debug.Log(_nextDotDist);
-            _trail.Add(Instantiate(dotPrefab1, transform.position, Quaternion.identity) as GameObject);
+            Destroy(dot);
         }
     }
 
-    void OnCollisionEnter2D()
+    public void ChangeTrailColor(Color color)
+    {
+        foreach (var dot in _trail)
+        {
+            SpriteRenderer sprRend = dot.GetComponent<SpriteRenderer>();
+            sprRend.color = color;
+        }
+    }
+
+    public void SendTrail()
     {
         TrailMaker.Trail.Say(_trail);
-        _trailSended = true;
     }
+
     void OnDestroy()
     {
-        if (TouchHandler.applicationIsRunning&(!_trailSended))
+        if (gameObject.tag == "DemoMissile")
         {
-            TrailMaker.Trail.Say(_trail);
+            DestroyTrail();
         }
-        //if (this.gameObject.name == "DemoTrailPoint")
-        //{
-        //    TrailMaker.TransformTrail.Say(_transformTrail);
-        //}
+        else if (TouchHandler.applicationIsRunning&(!_trailSended))
+        {
+            SendTrail();  
+        }
     }
 }

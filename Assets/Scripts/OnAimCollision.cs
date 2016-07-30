@@ -7,17 +7,17 @@ public class OnAimCollision : MonoBehaviour {
     
     List<Vector2> path = null;
     
-    public void moveToShip()
-    {
-        path = trailHandler.getPath();
-        path.Reverse();
-        Debug.Log("PAth is here");
+    //public void moveToShip()
+    //{
+    //    path = trailHandler.getPath(0);
+    //    path.Reverse();
+    //    Debug.Log("PAth is here");
 
-        foreach (Vector2 point in path)
-        {
-            transform.position = Vector2.Lerp(transform.position, point, 0.9f);
-        }
-    }
+    //    foreach (Vector2 point in path)
+    //    {
+    //        transform.position = Vector2.Lerp(transform.position, point, 0.9f);
+    //    }
+    //}
 	
 	// Update is called once per frame
 	void Update () {

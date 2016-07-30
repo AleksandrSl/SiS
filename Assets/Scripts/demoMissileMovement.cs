@@ -1,32 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-class demoMissileMovement : Movable {
+class DemoMissileMovement : Movable {
 
     private TrailMaker _trailMaker;
-    public int _stepNumber = 0; 
+ 
     void Awake()
     {
         _trailMaker = GetComponent<TrailMaker>();
-        _attr = GetComponent<Attractable>();
-        Controller.demoMissileDestroy.Subscribe(destroy);
+        Attr = GetComponent<Attractable>();
     }
 
-    void destroy()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(this.gameObject);
+        Debug.Log("Collision detected"); //Collision detected only after the path is rendered, thus the path lies through planets
+        enabled = false;
     }
+
     void FixedUpdate()
     {
-
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 40; ++i)
         {
             this.MovementStep();
-           _trailMaker.LeaveTrailByCoord();
+            _trailMaker.LeaveSteadyTrail();
         }
-
-        _stepNumber++;
-        if (_stepNumber == 5)
-            Destroy(this.gameObject);
+        enabled = false;
     }
 }

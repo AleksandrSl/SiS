@@ -9,8 +9,9 @@ public class RotationController : MonoBehaviour
     public float rotationSpeed;
     private Vector2 _direction;
 
-    private Vector2 _pos2D;
+    private Vector2 _curPos;
     private Vector2 _touchPos;
+    private Quaternion _rotation;
 
     //#if UNITY_ANDROID
 
@@ -89,23 +90,22 @@ public class RotationController : MonoBehaviour
 
     void Awake()
     {
-        _pos2D = new Vector2(transform.position.x, transform.position.y);
+        _curPos = transform.position;
         //Controller.Touch.Subscribe(OnRotationCommand);
     }
 
-    void Update()
+    void LateUpdate()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0)) 
         {
             _touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            _direction = _touchPos - _pos2D;
-            Quaternion _touchRotation = Quaternion.LookRotation(Vector3.forward, _direction);
+            _direction = _touchPos - _curPos;
+            if (_direction == Vector2.zero) return;
+            _rotation = Quaternion.LookRotation(Vector3.forward, _direction);
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                if (_touchRotation != transform.rotation)
-                { //Is't worth to do so?
-                    transform.rotation = Quaternion.Slerp(transform.rotation, _touchRotation, rotationSpeed * Time.deltaTime);
-                }
+               transform.rotation = Quaternion.Slerp(transform.rotation, _rotation, rotationSpeed * Time.deltaTime);
+                    //Debug.Log("Rotated!");
             }
         }
 

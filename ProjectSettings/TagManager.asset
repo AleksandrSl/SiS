@@ -7,7 +7,10 @@ TagManager:
   - Planet
   - Aim
   - Explosion
+  - DemoMissile
+  - Fire
   - New Tag
+  - DemoDot
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Background Image
   - 
   - 
   - 

@@ -26,6 +26,12 @@ namespace ProgressBar.Utils
     public class OnCompleteEvent : UnityEvent { }
 
     /// <summary>
+    /// Method chosen to be triggered when a ProgressBar is empty.
+    /// </summary>
+    [Serializable]
+    public class OnEmptyEvent : UnityEvent { }
+
+    /// <summary>
     /// Min and Max Filler's width
     /// </summary>
     public class FillerProperty
