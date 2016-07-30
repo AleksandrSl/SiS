@@ -25,15 +25,21 @@ public class StateChanger: MonoBehaviour {
     /// 
     /// </summary>
     public void Awake()  
-    // To call next code only once.
     {
         string _stateMachineClassName = "StateMachine." + stateMachineName;
         var _stateMachineClass = typeof(StateChanger).Assembly.GetType(_stateMachineClassName);
         FieldInfo[] _stateMachineClassFields = _stateMachineClass.GetFields();
         _stateMachine = _stateMachineClassFields[0].GetValue(null);
         var _stateMachineBasicClass = typeof(StateChanger).Assembly.GetType(_stateMachine.GetType().FullName.ToString());
+        _curState = _stateMachineBasicClass.GetProperty("curState");
         var _enumType = typeof(StateChanger).Assembly.GetType(enumName);
         _state = Enum.ToObject(_enumType, stateIndex);
-        
+        Debug.Log(_state);
     }
 }
+
+
+ 
+         
+         
+         
