@@ -14,10 +14,12 @@ namespace ProgressBar
         /// </summary>
         [SerializeField]
         private RectTransform m_FillRect;
+
         /// <summary>
         /// Class used for storing the Min and Max width values that the Filler will vary between.
         /// </summary>
         private FillerProperty m_FillerInfo;
+        //public int StartValue;
 
         public FillerProperty FillerInfo
         {
@@ -93,7 +95,17 @@ namespace ProgressBar
         /// </summary>
         [SerializeField]
         private OnCompleteEvent OnCompleteMethods;
-        
+
+        /// <summary>
+        /// If true, when the ProgressBar reaches 0% the chosen method(s) will be triggered (see OnEmptyMethods).
+        /// </summary>
+        public bool TriggerOnEmpty;
+        /// <summary>
+        /// The methods that you register to be triggered when the ProgressBar is empty.
+        /// </summary>
+        [SerializeField]
+        private OnCompleteEvent OnEmptyMethods;
+
         /// <summary>
         /// By default the Filler is centered horizontally in its container panel.
         /// This value is needed for the SetInsetAndSizeFromParentEdge method.
@@ -194,7 +206,15 @@ namespace ProgressBar
         {
             OnCompleteMethods.Invoke();
         }
-        
+
+        /// <summary>
+        /// Will be triggered if TriggerOnEmpty is True
+        /// </summary>
+        public void OnEmpty()
+        {
+            OnEmptyMethods.Invoke();
+        }
+
         /// <summary>
         /// Increment value by X percents
         /// </summary>

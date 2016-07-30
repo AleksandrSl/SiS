@@ -10,4 +10,5 @@ public class Controller{
     public static Message<float> FillRadialElement = new Message<float>();
     public static Message DemoMissileDestroy = new Message();
     public static Message<float> ExplSpawned = new Message<float>();
+    public static Message<float> UpdateEnergyBar = new Message<float>();
 }

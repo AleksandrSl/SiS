@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2420bf6d6af72a54b8ac8af517cb2785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Density: 10
+  Density: 3
   DotPrefab1: {fileID: 157696, guid: 9e901f9de365da944bea1292c3a8474c, type: 2}
   DotPrefab2: {fileID: 0}
   FirstDot: 0

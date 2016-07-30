@@ -4,8 +4,8 @@ using System;
 
 public enum GameStates{
 	Turn,
-	Fire,
-	WaitForHit,
+    Aim,
+	Fired,
 	HitAnimation
 	
 }

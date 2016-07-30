@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 
 public class TrailMaker : MonoBehaviour {
     public static SingleMessage<List<GameObject>> Trail = new SingleMessage<List<GameObject>>();
-    public static SingleMessage<List<Vector2>> TransformTrail = new SingleMessage<List<Vector2>>();
     private List<GameObject> _trail = new List<GameObject>();
     
 
@@ -15,10 +14,7 @@ public class TrailMaker : MonoBehaviour {
     public float FirstDot;
     public int WhereTrailBegins = 1;
    
-   
-    private float _completedPath;
     private float _traversedDist;
-    
     private Vector2 _curPos;
     private Vector2 _prevPos;
     private bool _trailSended = false;
@@ -42,7 +38,7 @@ public class TrailMaker : MonoBehaviour {
     //    _trail.Add(Instantiate(DotPrefab1, _curPos, Quaternion.identity) as GameObject);
     //}
 
-    public void LeaveConstTrail()
+    public void LeaveSteadyTrail()
     {
         _prevPos = _curPos;
         _curPos = transform.position;
@@ -50,9 +46,9 @@ public class TrailMaker : MonoBehaviour {
         
         while (((_curPos - _prevPos).normalized * _distToNextDot).magnitude < _traversedDist)
         {
-            _distToNextDot = Density * _dotNum;
             _trail.Add(Instantiate(DotPrefab1, (_curPos - _prevPos).normalized * (_distToNextDot - _traversedDist) + _prevPos, Quaternion.identity) as GameObject);
             _dotNum++;
+            _distToNextDot = Density * _dotNum;
         }
     }
 

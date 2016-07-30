@@ -4,12 +4,12 @@ using System.Collections;
 [RequireComponent(typeof(Attractable), typeof(TrailMaker), typeof(Rigidbody2D))]
 class MissileMovement : Movable {
 
-    private int _stepNum;
+    //private int _stepNum;
     private TrailMaker _trailMaker;
 
     void Awake()
     {
-        _stepNum = 0;
+        //_stepNum = 0;
         _trailMaker = GetComponent<TrailMaker>();
         Attr = GetComponent<Attractable>(); // Declared in Movable
     }
@@ -31,7 +31,7 @@ class MissileMovement : Movable {
     void FixedUpdate()
     {
         MovementStep();
-        _trailMaker.LeaveConstTrail();
+        _trailMaker.LeaveSteadyTrail();
 
     }
   
