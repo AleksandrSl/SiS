@@ -16,6 +16,7 @@ public class ShotForceEvaluator : MonoBehaviour {
     private bool _isTargetingStarted = false;
     private StateChanger _stateChanger;
     private int _caseSwitch = 1;
+    private bool _isReadyForShot = false;
 
     void Awake()
     {
@@ -26,52 +27,53 @@ public class ShotForceEvaluator : MonoBehaviour {
 
     void LateUpdate () {
 
-        switch (_caseSwitch)
+        if (Input.GetMouseButtonDown(0))
         {
-            case 1:
-                if (Input.GetMouseButtonDown(0))
-                {
-                    _curPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    _isTargetingStarted = Vector2.Distance(_curPos, _objPos) < StartRadius;
-                }
+            _curPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _isTargetingStarted = Vector2.Distance(_curPos, _objPos) < StartRadius;
+        }
                 
-                if (_isTargetingStarted)
-                {
-                    _caseSwitch = 2;
-                    _isTargetingStarted = false;
-                    Debug.Log("Case switched to 2");
-                }
-                break;
-            case 2:
-                if (Input.GetMouseButton(0))
-                {
-                    _touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    if (_touchPos == _curPos) return;
-                    _curPos = _touchPos;
-                    _shotForce = Mathf.Min((Vector2.Distance(_touchPos, transform.position) * 2 - ShotForceMin), ShotForceMax);
-                    if (_shotForce < ShotForceMin)
-                    {
-                        Controller.DestroyDemoFire.Say();
-                        return;
-                    }
-                    Controller.DemoFireForce.Say(_shotForce);
-                    Controller.FillRadialElement.Say((_shotForce - ShotForceMin) / (ShotForceMax - ShotForceMin));
-                }
-                if (Input.GetMouseButtonUp(0))
-                {
-                    _shotForce = Mathf.Min((Vector2.Distance(_touchPos, transform.position) * 2 - ShotForceMin), ShotForceMax);
-                    if (_shotForce < ShotForceMin) return;
-                    
-                    _caseSwitch = 1;
-                    _stateChanger.ChangeState();
-                    Controller.DemoFireForce.Say(_shotForce);
-                    Controller.FireForce.Say(_shotForce);
-                }
-                break;
+        if (!_isTargetingStarted)
+        {
+            return;
+        }
+         
+        if (Input.GetMouseButton(0))
+        {
+            _touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (_touchPos == _curPos)
+            {
+                return;
+            }
+            _curPos = _touchPos;
+            _shotForce = Mathf.Min((Vector2.Distance(_touchPos, transform.position) * 2 - ShotForceMin), ShotForceMax);
+            if (_shotForce < ShotForceMin)
+            {
+                Controller.DestroyDemoFire.Say();
+                return; //Можно _isTargetingStarted сделать false, но тогда придется заново щелкать в центр корабля. Наверное не очень удобно
+            }   
+            Controller.DemoFireForce.Say(_shotForce);
+            Controller.FillRadialElement.Say((_shotForce - ShotForceMin) / (ShotForceMax - ShotForceMin));
+            _isReadyForShot = true;
+        }
                 
+        if (!_isReadyForShot)
+        {
+            return;
         }
 
-        
+        if (Input.GetMouseButtonUp(0))
+        {
+            _shotForce = Mathf.Min((Vector2.Distance(_touchPos, transform.position) * 2 - ShotForceMin), ShotForceMax);
+            if (_shotForce < ShotForceMin)
+            {
+                return;
+            }
+            _stateChanger.ChangeState();
+            Controller.DemoFireForce.Say(_shotForce);
+            Controller.FireForce.Say(_shotForce);
+            Controller.DestroyDemoFire.Say();
+        }
         
     }
 }
