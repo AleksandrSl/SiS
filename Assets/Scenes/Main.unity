@@ -657,8 +657,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beae6668dd88a21499b7d09ad9762512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartRadius: 5
-  ShotForceMin: 20
+  StartRadius: 2
+  ShotForceMin: 5
 --- !u!114 &838844735
 MonoBehaviour:
   m_ObjectHideFlags: 0

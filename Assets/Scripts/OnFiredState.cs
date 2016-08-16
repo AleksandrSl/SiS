@@ -3,7 +3,7 @@ using System.Collections;
 
 public class OnFiredState : MonoBehaviour {
     public GameObject[] GameObjects;
-    
+
     public void DisableScripts()
     {
         foreach (var go in GameObjects)

@@ -25,7 +25,8 @@ public class DemoMissileController : MonoBehaviour {
 
     private void DestroyOnRealFire(float shotForce)
     {
-        Destroy(GameObject.FindGameObjectWithTag("DemoMissile"), 1.0f);
+
+        Destroy(GameObject.FindGameObjectWithTag("DemoMissile"));
     }
     private void DestroyWithoutDelay()
     {

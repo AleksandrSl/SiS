@@ -4,7 +4,9 @@ using System.Collections;
 class DemoMissileMovement : Movable {
 
     private TrailMaker _trailMaker;
- 
+
+    [Range(15, 40)]
+    public int StepsPerUpdate;
     void Awake()
     {
         _trailMaker = GetComponent<TrailMaker>();
@@ -19,7 +21,7 @@ class DemoMissileMovement : Movable {
 
     void FixedUpdate()
     {
-        for (int i = 0; i < 40; ++i)
+        for (int i = 0; i < 20; ++i)
         {
             this.MovementStep();
             _trailMaker.LeaveSteadyTrail();
