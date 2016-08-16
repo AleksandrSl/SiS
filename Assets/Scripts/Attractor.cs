@@ -3,19 +3,19 @@ using System.Collections;
 using System;
 
 class Attractor : GravityElement{
-    Rigidbody2D rb2d;
+    private Rigidbody2D _rb2d;
     void Awake()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        _rb2d = GetComponent<Rigidbody2D>();
     }
-
+     
     public override Vector2 getPosition()
     {
-        return rb2d.position;
+        return _rb2d.position;
     }
     public override float getMass()
     {
-        return rb2d.mass;
+        return _rb2d.mass;
     }
 
     public override void accept(IVisitor visitor)

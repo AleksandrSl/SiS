@@ -31,17 +31,17 @@ class Attractable : MonoBehaviour, IVisitor {
     public Vector2 CalculateForce(float attractorMass, Vector2 attractorPosition)
     {
         float angle;
-        float dist = Vector2.Distance(attractorPosition, transform.position);
+        float dist = Mathf.Max(Vector2.Distance(attractorPosition, transform.position), 0.5f); // Чтобы бесконечно не разгонялся, так как расстояние в знаменателе и в квадрате
         Vector2 forceVect = attractorPosition - (Vector2)transform.position;
         if (attractorPosition.x < transform.position.x)
-        {  // Так как угол определяемый Vector2.Angle() у меня получался от 0 до 180
+         {  // Так как угол определяемый Vector2.Angle() у меня получался от 0 до 180
             angle = (360 - (Vector2.Angle(forceVect, Vector2.up))) * Mathf.PI / 180.0f;
         }
         else
         {
             angle = (Vector2.Angle(forceVect, Vector2.up)) * Mathf.PI / 180.0f;
         }
-        float gravityFieldValue = (float)System.Math.Round((attractorMass) / (dist * dist), 1);
+        float gravityFieldValue = (float)Math.Round((attractorMass) / (dist * dist), 1);
 
         return new Vector2((gravityFieldValue * Mathf.Sin(angle)), (gravityFieldValue * Mathf.Cos(angle)));
     }

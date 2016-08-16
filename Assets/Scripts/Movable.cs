@@ -6,7 +6,7 @@ using System.Collections;
 class Movable: MonoBehaviour
 {
 
-    private static float TimeStep = Time.fixedDeltaTime;
+    private static float _timeStep = Time.fixedDeltaTime;
     protected Attractable Attr;
     private Vector2 _coord = Vector2.zero;
 
@@ -19,8 +19,9 @@ class Movable: MonoBehaviour
     {
         
         Acceleration = Attr.GetGravityField();
-        _coord = new Vector2(Velocity.x * TimeStep + (Acceleration.x * (TimeStep * TimeStep) / 2), Velocity.y * TimeStep + (Acceleration.y * (TimeStep * TimeStep) / 2));
-        Velocity += Acceleration * TimeStep;
+        _coord = new Vector2(Velocity.x * _timeStep + (Acceleration.x * (_timeStep * _timeStep) / 2), Velocity.y * _timeStep + (Acceleration.y * (_timeStep * _timeStep) / 2));
+        //Debug.Log(_coord);
+        Velocity += Acceleration * _timeStep;
         if (_coord == Vector2.zero)
         {
             return;
